@@ -1,5 +1,5 @@
 {
-  "name": "webpack",
+  "name": "webpack-temp",
   "version": "1.0.0",
   "description": "learning webpack",
   "main": "index.js",
@@ -7,5 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Amir Anwar",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
+  }
 }
