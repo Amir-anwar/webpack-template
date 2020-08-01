@@ -1,6 +1,15 @@
-  $body-color: red;
+@font-face {
+  font-family: 'Brown';
+  src: url('./Brown-Regular.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+}
+
+
+$body-color: red;
 
 body {
   color: $body-color;
+  font-family: 'Brown';
   background: url('./icon.png')
 }
