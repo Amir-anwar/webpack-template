@@ -1,24 +1,38 @@
+const glob = require('glob');
+const path = require('path');
+
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+const generateHTMLPlugins = () => glob.sync('./src/**/*.html').map(
+  dir => new HtmlWebpackPlugin({
+    filename: path.basename(dir), // Output
+    template: dir, // Input
+  }),
+);
+
 module.exports = {
-  entry: {
-    main: './src/index.js',
-    vendor: './src/vendor.js',
+  node: {
+    fs: 'empty',
   },
-  devtool: 'inline-source-map',
-  devServer: {
-    contentBase: './dist',
+  entry: ['./src/js/index.js', './src/sass/main.scss'],
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'app.bundle.js',
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: './src/template.html',
-    }),
-  ],
   module: {
     rules: [
       {
+        test: /\.js$/,
+        use: [
+          'babel-loader'
+        ],
+      },
+      {
         test: /\.html$/,
-        use: ['html-loader'],
+        use: [
+          'raw-loader'
+        ],
       },
       {
         test: /\.(png|svg|jpe?g|gif)$/,
@@ -27,7 +41,7 @@ module.exports = {
             loader: 'file-loader',
             options: {
               name: '[name].[hash].[ext]',
-              outputPath: 'imgs',
+              outputPath: 'imgs/',
             },
           },
           {
@@ -56,9 +70,13 @@ module.exports = {
       },
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/,
-        use: [
-          'file-loader',
-        ],
+        use: [{
+          loader: 'file-loader',
+          options: {
+            name: '[name].[ext]',
+            outputPath: 'webfonts/',
+          },
+        }],
       },
       {
         test: /\.(csv|tsv)$/,
@@ -74,4 +92,17 @@ module.exports = {
       },
     ],
   },
+  plugins: [
+    new CopyWebpackPlugin([
+      {
+        from: './src/static/',
+        to: './static/',
+      },
+    ]),
+    ...generateHTMLPlugins(),
+  ],
+  stats: {
+    colors: true,
+  },
+  devtool: 'source-map'
 };
