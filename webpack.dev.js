@@ -16,7 +16,7 @@ module.exports = merge(common, {
           'style-loader',
           'css-loader',
           {
-            loader: 'postcss-loader'
+            loader: 'postcss-loader',
           },
         ],
       },
@@ -29,7 +29,7 @@ module.exports = merge(common, {
             loader: 'resolve-url-loader',
           },
           {
-            loader: 'postcss-loader'
+            loader: 'postcss-loader',
           },
           {
             loader: 'sass-loader',

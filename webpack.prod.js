@@ -1,8 +1,8 @@
 const path = require('path');
 const { merge } = require('webpack-merge');
-const common = require('./webpack.common');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const common = require('./webpack.common');
 
 module.exports = merge(common, {
   mode: 'production',
@@ -25,7 +25,7 @@ module.exports = merge(common, {
           MiniCssExtractPlugin.loader,
           'css-loader',
           {
-            loader: 'postcss-loader'
+            loader: 'postcss-loader',
           },
         ],
       },
@@ -38,7 +38,7 @@ module.exports = merge(common, {
             loader: 'resolve-url-loader',
           },
           {
-            loader: 'postcss-loader'
+            loader: 'postcss-loader',
           },
           {
             loader: 'sass-loader',
